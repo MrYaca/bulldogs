@@ -1,0 +1,23 @@
+{
+  "root": "libs/store/tickets",
+  "sourceRoot": "libs/store/tickets/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/store/tickets/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/store/tickets"],
+      "options": {
+        "jestConfig": "libs/store/tickets/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

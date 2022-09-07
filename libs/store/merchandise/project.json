@@ -1,0 +1,23 @@
+{
+  "root": "libs/store/merchandise",
+  "sourceRoot": "libs/store/merchandise/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/store/merchandise/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/store/merchandise"],
+      "options": {
+        "jestConfig": "libs/store/merchandise/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

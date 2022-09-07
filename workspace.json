@@ -2,6 +2,13 @@
   "version": 2,
   "projects": {
     "admin": "apps/admin",
-    "admin-e2e": "apps/admin-e2e"
+    "admin-e2e": "apps/admin-e2e",
+    "shared-ui": "libs/shared/ui",
+    "shared-utils": "libs/shared/utils",
+    "squad-players": "libs/squad/players",
+    "squad-stats": "libs/squad/stats",
+    "squad-tickets": "libs/squad/tickets",
+    "store-merchandise": "libs/store/merchandise",
+    "store-tickets": "libs/store/tickets"
   }
 }

@@ -1,0 +1,23 @@
+{
+  "root": "libs/squad/tickets",
+  "sourceRoot": "libs/squad/tickets/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/squad/tickets/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/squad/tickets"],
+      "options": {
+        "jestConfig": "libs/squad/tickets/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
