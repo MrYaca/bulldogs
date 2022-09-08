@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "error",
+        "complexity": ["error", { "max": 4 }],
+        "max-lines": ["error", 150]
+      }
+    }
+  ]
+}
