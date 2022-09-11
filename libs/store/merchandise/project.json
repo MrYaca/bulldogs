@@ -1,5 +1,4 @@
 {
-  "root": "libs/store/merchandise",
   "sourceRoot": "libs/store/merchandise/src",
   "projectType": "library",
   "tags": [],
@@ -17,6 +16,37 @@
       "options": {
         "jestConfig": "libs/store/merchandise/jest.config.js",
         "passWithNoTests": true
+      }
+    },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "uiFramework": "@storybook/react",
+        "port": 4400,
+        "config": {
+          "configFolder": "libs/store/merchandise/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "uiFramework": "@storybook/react",
+        "outputPath": "dist/storybook/store-merchandise",
+        "config": {
+          "configFolder": "libs/store/merchandise/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
       }
     }
   }

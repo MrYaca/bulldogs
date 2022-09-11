@@ -21,7 +21,8 @@
           "build",
           "lint",
           "test",
-          "e2e"
+          "e2e",
+          "build-storybook"
         ],
         "accessToken": "Y2ZiODE3NmUtYjQ4Yi00MWE1LWFhNzEtMDQxMmI4ZTdkOGU0fHJlYWQtd3JpdGU="
       }
