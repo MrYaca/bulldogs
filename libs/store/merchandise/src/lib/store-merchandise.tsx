@@ -9,6 +9,10 @@ export interface StoreMerchandiseProps {
   active: boolean;
 }
 
+function notify() {
+  console.log('Hola');
+}
+
 export function StoreMerchandise(props: StoreMerchandiseProps) {
   return (
     <div className={styles['container']}>
@@ -18,7 +22,7 @@ export function StoreMerchandise(props: StoreMerchandiseProps) {
         label={props.name}
       />
       <Divider textAlign="left">ACTIONS</Divider>
-      <Button variant="contained" disabled={!props.active}>
+      <Button variant="contained" disabled={!props.active} onClick={notify}>
         Save
       </Button>
     </div>
