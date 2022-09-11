@@ -6,6 +6,7 @@ export interface StoreMerchandiseProps {
   title: string;
   avatar: string;
   name: string;
+  active: boolean;
 }
 
 export function StoreMerchandise(props: StoreMerchandiseProps) {
@@ -16,11 +17,10 @@ export function StoreMerchandise(props: StoreMerchandiseProps) {
         avatar={<Avatar alt={props.name} src={props.avatar} />}
         label={props.name}
       />
-
-      <Avatar alt={props.name} src={props.avatar} />
-      <Chip label={props.name} />
       <Divider textAlign="left">ACTIONS</Divider>
-      <Button variant="contained">Save</Button>
+      <Button variant="contained" disabled={!props.active}>
+        Save
+      </Button>
     </div>
   );
 }
