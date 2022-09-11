@@ -11,4 +11,6 @@ const Template: ComponentStory<typeof StoreMerchandise> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  title: 'Hola Mundo',
+};
