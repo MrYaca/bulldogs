@@ -4,7 +4,9 @@ import StoreMerchandise from './store-merchandise';
 
 describe('StoreMerchandise', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<StoreMerchandise />);
+    const { baseElement } = render(
+      <StoreMerchandise title={''} avatar={''} name={''} active={false} />
+    );
     expect(baseElement).toBeTruthy();
   });
 });
