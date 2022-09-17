@@ -11,7 +11,7 @@ describe('StoreMerchandise', () => {
   });
 
   it('should get the input', () => {
-    render(
+    const { debug } = render(
       <StoreMerchandise
         title={''}
         avatar={''}
@@ -25,7 +25,10 @@ describe('StoreMerchandise', () => {
     //   'Nombre de Usuario'
     // ) as HTMLInputElement;
 
+    // debug();
     const input = screen.getByDisplayValue('@yacaFx') as HTMLInputElement;
+    // debug(input);
+    screen.debug(input);
 
     expect(input.id).toBe('user-name');
     expect(input.value).toBe('@yacaFx');
