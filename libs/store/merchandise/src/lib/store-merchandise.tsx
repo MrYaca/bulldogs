@@ -1,5 +1,6 @@
 import { Avatar, Button, Chip, Divider } from '@mui/material';
 import { ChangeEvent } from 'react';
+import { getProductName } from './product/product';
 import styles from './store-merchandise.module.scss';
 
 /* eslint-disable-next-line */
@@ -16,6 +17,10 @@ function notify() {
 
 function handleChangeName(name: ChangeEvent<HTMLInputElement>) {
   console.log(name.target);
+}
+
+export function getProductPrice(): string {
+  return `El precio de ${getProductName()} es $123 usd`;
 }
 
 export function StoreMerchandise(props: StoreMerchandiseProps) {

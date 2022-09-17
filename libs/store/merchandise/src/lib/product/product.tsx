@@ -3,6 +3,10 @@ import styles from './product.module.scss';
 /* eslint-disable-next-line */
 export interface ProductProps {}
 
+export function getProductName(): string {
+  return 'tickets';
+}
+
 export function Product(props: ProductProps) {
   return (
     <div className={styles['container']}>
