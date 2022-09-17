@@ -33,6 +33,7 @@ export function StoreMerchandise(props: StoreMerchandiseProps) {
           type="text"
           value={props.name}
           onChange={handleChangeName}
+          disabled={props.active}
         />
       </div>
       <Divider textAlign="left">ACTIONS</Divider>
