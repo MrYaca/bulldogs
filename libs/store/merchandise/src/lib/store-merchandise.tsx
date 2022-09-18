@@ -23,6 +23,10 @@ export function getProductPrice(): string {
   return `El precio de ${getProductName()} es $123 usd`;
 }
 
+export function openLink(url: string) {
+  window.open(url, '_blank');
+}
+
 export function StoreMerchandise(props: StoreMerchandiseProps) {
   return (
     <div className={styles['container']}>
@@ -38,7 +42,6 @@ export function StoreMerchandise(props: StoreMerchandiseProps) {
           type="text"
           value={props.name}
           onChange={handleChangeName}
-          disabled={props.active}
         />
       </div>
       <Divider textAlign="left">ACTIONS</Divider>

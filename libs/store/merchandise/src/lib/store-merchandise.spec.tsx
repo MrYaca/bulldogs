@@ -1,11 +1,19 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import StoreMerchandise, { getProductPrice } from './store-merchandise';
+import StoreMerchandise, {
+  getProductPrice,
+  openLink,
+} from './store-merchandise';
 import * as product from './product/product';
 
 import spyOn = jest.spyOn;
 
 describe('StoreMerchandise', () => {
+  afterEach(() => {
+    jest.clearAllMocks(); // reset all but no implementation
+    jest.resetAllMocks(); // reset all and the implementation
+  });
+
   it('should render successfully', () => {
     const { baseElement } = render(
       <StoreMerchandise title={''} avatar={''} name={''} active={false} />
@@ -68,8 +76,13 @@ describe('StoreMerchandise', () => {
     spy.mockRestore();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks(); // reset all but no implementation
-    jest.resetAllMocks(); // reset all and the implementation
+  it('should redirect to a new url', () => {
+    const spy = spyOn(window, 'open').mockImplementation(() => window);
+    const url = 'http://yacafx.com';
+
+    openLink(url);
+
+    expect(spy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledWith(url, '_blank');
   });
 });
