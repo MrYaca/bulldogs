@@ -1,10 +1,12 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import StoreMerchandise, {
   getProductPrice,
   openLink,
 } from './store-merchandise';
 import * as product from './product/product';
+import * as data from './albums/data.services';
+import { albumsMocks } from './albums/albums.mocks';
 
 import spyOn = jest.spyOn;
 
@@ -84,5 +86,43 @@ describe('StoreMerchandise', () => {
 
     expect(spy).toHaveBeenCalled();
     expect(spy).toHaveBeenCalledWith(url, '_blank');
+  });
+
+  it('should load and display albums list', async () => {
+    const spy = spyOn(data, 'loadAlbums').mockResolvedValueOnce(albumsMocks);
+    await act(async () => {
+      render(
+        <StoreMerchandise
+          title={''}
+          avatar={''}
+          name={'@yacaFx'}
+          active={false}
+        />
+      );
+    });
+
+    const albums = screen.getByTestId('albums');
+    screen.debug(albums);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should display no records message', async () => {
+    // const spy = spyOn(data, 'loadAlbums').mockResolvedValueOnce([]);
+    const spy = spyOn(data, 'loadAlbums').mockResolvedValueOnce(undefined);
+    await act(async () => {
+      render(
+        <StoreMerchandise
+          title={''}
+          avatar={''}
+          name={'@yacaFx'}
+          active={false}
+        />
+      );
+    });
+
+    const albums = screen.getByTestId('no-data');
+    screen.debug(albums);
+    //  expect(spy).toHaveBeenCalled();
+    expect(albums).toHaveTextContent('No hay registros disponibles');
   });
 });
