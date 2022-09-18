@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import StoreMerchandise, {
   getProductPrice,
   openLink,
@@ -8,9 +8,29 @@ import * as product from './product/product';
 import * as data from './albums/data.services';
 import { albumsMocks } from './albums/albums.mocks';
 
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import 'whatwg-fetch';
+
 import spyOn = jest.spyOn;
 
+const server = setupServer(
+  rest.get(`https://jsonplaceholder.typicode.com/albums`, (req, res, ctx) => {
+    // return res(ctx.json(albumsMocks));
+    return res(
+      ctx.json([
+        {
+          userId: 123,
+          id: 321,
+          title: 'Álbum campeones 2022',
+        },
+      ])
+    );
+  })
+);
+
 describe('StoreMerchandise', () => {
+  beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
   afterEach(() => {
     jest.clearAllMocks(); // reset all but no implementation
     jest.resetAllMocks(); // reset all and the implementation
@@ -34,9 +54,7 @@ describe('StoreMerchandise', () => {
       {}
     );
 
-    // const input = screen.getByLabelText(
-    //   'Nombre de Usuario'
-    // ) as HTMLInputElement;
+    // const input = screen.getByLabelText('Nombre de Usuario') as HTMLInputElement;
 
     // debug();
     const input = screen.getByDisplayValue('@yacaFx') as HTMLInputElement;
@@ -89,7 +107,7 @@ describe('StoreMerchandise', () => {
   });
 
   it('should load and display albums list', async () => {
-    const spy = spyOn(data, 'loadAlbums').mockResolvedValueOnce(albumsMocks);
+    // const spy = spyOn(data, 'loadAlbums').mockResolvedValueOnce(albumsMocks);
     await act(async () => {
       render(
         <StoreMerchandise
@@ -101,9 +119,13 @@ describe('StoreMerchandise', () => {
       );
     });
 
-    const albums = screen.getByTestId('albums');
-    screen.debug(albums);
-    expect(spy).toHaveBeenCalled();
+    await waitFor(() => {
+      const albums = screen.getByTestId('albums');
+      screen.debug(albums);
+      expect(albums).toBeInTheDocument();
+      // expect(spy).toHaveBeenCalled();
+      expect(albums).toHaveTextContent('Álbum campeones 2022');
+    });
   });
 
   it('should display no records message', async () => {
