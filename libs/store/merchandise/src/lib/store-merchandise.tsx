@@ -1,7 +1,7 @@
 import { Avatar, Button, Chip, Divider } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Album } from './albums/albums.interfaces';
-import { loadAlbums } from './albums/data.services';
+import { AlbumsService } from './services/data.services';
 import { getProductName } from './product/product';
 import styles from './store-merchandise.module.scss';
 
@@ -47,9 +47,17 @@ function printAlbums(albums: Album[]) {
 export function StoreMerchandise(props: StoreMerchandiseProps) {
   const [albums, setAlbums] = useState<Album[]>([]);
 
+  const albumsService = AlbumsService.getInstance();
+
   useEffect(() => {
     const getAlbums = async () => {
-      const albums = await loadAlbums();
+      const albums = await albumsService.getAll();
+      const album = {
+        title: 'Torneo verano 22',
+        userId: 123,
+        id: 1,
+      };
+      console.log('**', await albumsService.add(album));
       setAlbums(albums);
     };
 
@@ -82,7 +90,7 @@ export function StoreMerchandise(props: StoreMerchandiseProps) {
       <Divider textAlign="left">TICKETS</Divider>
       {getProductPrice()}
       <Divider textAlign="left">PHOTOS</Divider>
-      {printAlbums(albums)}
+      {printAlbums(albumsService.albums)}
     </div>
   );
 }
