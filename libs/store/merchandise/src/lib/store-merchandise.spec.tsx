@@ -5,7 +5,7 @@ import StoreMerchandise, {
   openLink,
 } from './store-merchandise';
 import * as product from './product/product';
-import * as data from './albums/data.services';
+import { AlbumsService } from './services/data.services';
 import { albumsMocks } from './albums/albums.mocks';
 
 import { rest } from 'msw';
@@ -130,7 +130,8 @@ describe('StoreMerchandise', () => {
 
   it('should display no records message', async () => {
     // const spy = spyOn(data, 'loadAlbums').mockResolvedValueOnce([]);
-    const spy = spyOn(data, 'loadAlbums').mockResolvedValueOnce(undefined);
+    AlbumsService.getInstance();
+    const spy = spyOn(AlbumsService, 'getAll').mockResolvedValueOnce(undefined);
     await act(async () => {
       render(
         <StoreMerchandise
