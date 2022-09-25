@@ -4,6 +4,7 @@ import { Album } from './albums/albums.interfaces';
 import { AlbumsService } from './services/data.services';
 import { getProductName } from './product/product';
 import styles from './store-merchandise.module.scss';
+import Product from './product/product';
 
 /* eslint-disable-next-line */
 export interface StoreMerchandiseProps {
@@ -33,11 +34,15 @@ function printAlbums(albums: Album[]) {
   console.log(albums);
   const result =
     albums && albums.length > 0 ? (
-      <ol data-testid="albums">
+      <ul data-testid="albums">
         {albums.map((album) => {
-          return <li key={album.id}>{album.title}</li>;
+          return (
+            <li key={album.id}>
+              <Product name={album.title} />
+            </li>
+          );
         })}
-      </ol>
+      </ul>
     ) : (
       <div data-testid="no-data">No hay registros disponibles</div>
     );

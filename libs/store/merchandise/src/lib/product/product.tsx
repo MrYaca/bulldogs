@@ -1,3 +1,5 @@
+import { Button, ButtonGroup } from '@mui/material';
+import countHandler from '../hocs/count-handler';
 import styles from './product.module.scss';
 
 /* eslint-disable-next-line */
@@ -7,12 +9,27 @@ export function getProductName(): string {
   return 'tickets';
 }
 
-export function Product(props: ProductProps) {
+interface ProductFull {
+  name: string;
+  count: number;
+  add: () => void;
+  remove: () => void;
+}
+
+export function Product({ name, count, add, remove }: ProductFull) {
   return (
-    <div className={styles['container']}>
-      <h1>Welcome to Product!</h1>
+    <div className={styles['product']}>
+      <ButtonGroup variant="outlined" size="small">
+        <Button onClick={add}>+</Button>
+        <Button disabled={count === 0} onClick={remove}>
+          -
+        </Button>
+      </ButtonGroup>
+      <label>
+        {count} → {name}
+      </label>
     </div>
   );
 }
 
-export default Product;
+export default countHandler(Product);
