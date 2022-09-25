@@ -130,8 +130,8 @@ describe('StoreMerchandise', () => {
 
   it('should display no records message', async () => {
     // const spy = spyOn(data, 'loadAlbums').mockResolvedValueOnce([]);
-    AlbumsService.getInstance();
-    const spy = spyOn(AlbumsService, 'getAll').mockResolvedValueOnce(undefined);
+    const service = AlbumsService.getInstance();
+    const spy = spyOn(service, 'getAll').mockResolvedValueOnce(undefined);
     await act(async () => {
       render(
         <StoreMerchandise
