@@ -1,5 +1,6 @@
 import { Button, ButtonGroup } from '@mui/material';
 import countHandler from '../hocs/count-handler';
+import { AlbumsService } from '../services/data.services';
 import styles from './product.module.scss';
 
 /* eslint-disable-next-line */
@@ -17,6 +18,10 @@ interface ProductFull {
 }
 
 export function Product({ name, count, add, remove }: ProductFull) {
+  const albumsService = AlbumsService.getInstance();
+  const select = () => {
+    albumsService.selected$.next(name);
+  };
   return (
     <div className={styles['product']}>
       <ButtonGroup variant="outlined" size="small">
@@ -25,7 +30,7 @@ export function Product({ name, count, add, remove }: ProductFull) {
           -
         </Button>
       </ButtonGroup>
-      <label>
+      <label onClick={select}>
         {count} → {name}
       </label>
     </div>

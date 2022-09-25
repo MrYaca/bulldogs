@@ -5,6 +5,7 @@ import { AlbumsService } from './services/data.services';
 import { getProductName } from './product/product';
 import styles from './store-merchandise.module.scss';
 import Product from './product/product';
+import { interval, Subscription } from 'rxjs';
 
 /* eslint-disable-next-line */
 export interface StoreMerchandiseProps {
@@ -49,12 +50,29 @@ function printAlbums(albums: Album[]) {
   return result;
 }
 
+function logout() {
+  subscription.unsubscribe();
+}
+
+const observable$ = interval(2000);
+let subscription: Subscription;
+
 export function StoreMerchandise(props: StoreMerchandiseProps) {
   const [albums, setAlbums] = useState<Album[]>([]);
+  const [session, setSession] = useState<number>();
+  const [selected, setSelected] = useState<string>();
 
   const albumsService = AlbumsService.getInstance();
 
   useEffect(() => {
+    subscription = observable$.subscribe((activeTime) =>
+      setSession(activeTime)
+    );
+
+    albumsService.selected$.subscribe((value) => {
+      setSelected(value);
+    });
+
     const getAlbums = async () => {
       const albums = await albumsService.getAll();
       const album = {
@@ -93,6 +111,13 @@ export function StoreMerchandise(props: StoreMerchandiseProps) {
         Save
       </Button>
       <Divider textAlign="left">TICKETS</Divider>
+      <p>Tiempo activo: {session}</p>
+      <Button variant="contained" onClick={logout}>
+        Salir
+      </Button>
+      <p>
+        Producto seleccionados: <strong>{selected}</strong>
+      </p>
       {getProductPrice()}
       <Divider textAlign="left">PHOTOS</Divider>
       {printAlbums(albumsService.albums)}

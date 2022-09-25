@@ -1,6 +1,9 @@
+import { BehaviorSubject } from 'rxjs';
 import { Album } from '../albums/albums.interfaces';
 
 export class AlbumsService {
+  selected$: BehaviorSubject<string> = new BehaviorSubject('-');
+
   private _url: string;
   private _albums: Album[];
 
