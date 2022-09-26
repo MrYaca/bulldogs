@@ -5,33 +5,32 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "ES_06/01" ]
+    branches: ['ES_06/01']
   pull_request:
-    branches: [ "ES_06/01" ]
+    branches: ['ES_06/01']
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
 
-    - name: Install all dependencies
-      run: yarn 
+      - name: Install all dependencies
+        run: yarn --prefer-offline
 
-    - name: Run the tests
-      run: yarn nx run store-merchandise:test
-      
-    - name: Build the app
-      run: yarn nx run admin:build:production
+      - name: Run the tests
+        run: yarn nx run store-merchandise:test
+
+      - name: Build the app
+        run: yarn nx run admin:build:production
