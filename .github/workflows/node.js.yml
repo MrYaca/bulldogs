@@ -27,11 +27,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
 
-    - name: Installa dependencies
+    - name: Install all dependencies
       run: yarn 
-
-    - name: Run the lint
-      run: yarn nx run store-merchandise:lint
 
     - name: Run the tests
       run: yarn nx run store-merchandise:test
+      
+    - name: Build the app
+      run: yarn nx run admin:build:production
