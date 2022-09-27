@@ -2,13 +2,10 @@
   "name": "bulldogs",
   "version": "0.0.0",
   "license": "MIT",
-  "homepage": "https://mryaca.github.io/bulldogs",
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test",
-    "predeploy": "yarn nx run admin:build:production --baseHref=/bulldogs/",
-    "deploy": "gh-pages -d dist/apps/admin"
+    "test": "nx test"
   },
   "private": true,
   "dependencies": {
