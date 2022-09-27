@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "ES_06/01" ]
+    branches: ['ES_06/02']
   pull_request:
-    branches: [ "ES_06/01" ]
+    branches: ['ES_06/02']
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,25 +19,33 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-    - name: Install all dependencies
-      run: yarn --prefer-offline
+      - name: Install all dependencies
+        run: yarn --prefer-offline
 
-    - name: Run the tests
-      run: yarn nx run store-merchandise:test
-      
-    - name: Run the lint
-      run: yarn nx run store-merchandise:lint
-      
-    - name: Build the app
-      run: yarn nx run admin:build:production
+      - name: Run the tests
+        run: yarn nx run store-merchandise:test
 
+      - name: Run the lint
+        run: yarn nx run store-merchandise:lint
 
+      - name: Build the app
+        run: yarn nx run admin:build:production
 
-
+      - name: Deploy
+        run: |
+          git config --global user.name $user_name
+          git config --global user.email $user_email
+          git remote set-url origin https://${github_token}@github.com/${repository}
+          yarn deploy
+        env:
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          repository: ${{ github.repository }}
